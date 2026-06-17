@@ -1,6 +1,6 @@
 # Starweb Sandbox
 
-A stress test and sandbox environment for [web-engine](https://github.com/masonlet/web-engine/), built with TypeScript and Vite.
+A stress test and sandbox environment for [@starweb-libs/engine](https://github.com/starweb-libs/engine/), built with TypeScript and Vite.
 
 ## Live Demo
 [masonletoile.ca/starweb-sandbox](https://www.masonletoile.ca/starweb-sandbox/)
