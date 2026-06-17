@@ -3,7 +3,7 @@
 A stress test and sandbox environment for [web-engine](https://github.com/masonlet/web-engine/), built with TypeScript and Vite.
 
 ## Live Demo
-[masonlet.github.io/starweb-sandbox](https://masonlet.github.io/starweb-sandbox/)
+[masonletoile.ca/starweb-sandbox](https://www.masonletoile.ca/starweb-sandbox/)
 
 ## Tech Stack
 <p align="left">
