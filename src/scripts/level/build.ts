@@ -1,4 +1,4 @@
-import type { AABB  } from "starweb-physics/types.js";
+import type { AABB  } from "@starweb-libs/physics/types.js";
 import type { Level } from "./types.ts";
 
 export function buildWalls(level: Level, cw: number, ch: number): AABB[] {

@@ -1,4 +1,4 @@
-import { isObj, num, str, optStr, arr } from "starweb-engine/validate.js";
+import { isObj, num, str, optStr, arr } from "@starweb-libs/engine/validate.js";
 import type { Level, NormalizedRect   } from "./types.ts";
 
 export function loadLevel(rawLevel: unknown): Level {
