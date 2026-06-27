@@ -1,5 +1,5 @@
-import type { OBB, AABB } from "starweb-physics/types.js";
-import { obbVsAabb      } from "starweb-physics/collision.js";
+import type { OBB, AABB } from "@starweb-libs/physics/types.js";
+import { obbVsAabb      } from "@starweb-libs/physics/collision.js";
 import type { Level     } from "../level/types.ts";
 
 export function spawnRects(

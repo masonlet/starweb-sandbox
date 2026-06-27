@@ -1,4 +1,4 @@
-import { wasPressed      } from "starweb-engine/input/keyboard.js";
+import { wasPressed      } from "@starweb-libs/engine/input/keyboard.js";
 import type { PlayState  } from "./types.ts";
 import type { Campaign   } from "../campaign/types.ts";
 import { buildWalls      } from "../level/build.ts";

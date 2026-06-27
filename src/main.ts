@@ -1,5 +1,5 @@
 import "./style.css";
-import      { startLoop                } from "starweb-engine/update.js";
+import      { startLoop                } from "@starweb-libs/engine/update.js";
 import type { FrameState               } from "./scripts/game/types.ts";
 import      { bootstrapGame            } from "./scripts/game/game.ts";
 import      { loadCampaign             } from "./scripts/campaign/load.ts";

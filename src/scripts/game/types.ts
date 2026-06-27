@@ -1,6 +1,6 @@
-import type { OBB, AABB, CircleBody } from "starweb-physics/types.js";
+import type { OBB, AABB, CircleBody } from "@starweb-libs/physics/types.js";
+import type { SliderState           } from "@starweb-libs/ui/types.js";
 import type { Level                 } from "../level/types.ts";
-import type { SliderState           } from "starweb-ui/types.js";
 import type {
   TitleMenuState,
   SettingsMenuState,

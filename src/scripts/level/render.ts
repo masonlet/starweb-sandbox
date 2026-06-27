@@ -1,4 +1,4 @@
-import type { AABB } from "starweb-physics/types.js";
+import type { AABB } from "@starweb-libs/physics/types.js";
 
 export function renderWalls(ctx: CanvasRenderingContext2D, walls: AABB[]): void {
   ctx.strokeStyle = "#fff";
