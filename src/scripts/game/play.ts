@@ -1,10 +1,19 @@
-import { wasPressed      } from "@starweb-libs/engine/input/keyboard.js";
-import type { PlayState  } from "./types.ts";
-import type { Campaign   } from "../campaign/types.ts";
-import { buildWalls      } from "../level/build.ts";
-import { renderWalls     } from "../level/render.ts";
-import { spawnRects, updateRects, renderRects       } from "../physics/rect.ts";
-import { spawnCircles, updateCircles, renderCircles } from "../physics/circles.ts";
+import { wasPressed     } from "@starweb-libs/engine/input/keyboard.js";
+import { Audio          } from "@starweb-libs/audio/audio.js";
+import type { PlayState } from "./types.ts";
+import type { Campaign  } from "../campaign/types.ts";
+import { buildWalls     } from "../level/build.ts";
+import { renderWalls    } from "../level/render.ts";
+import {
+  spawnRects,
+  updateRects,
+  renderRects
+} from "../physics/rect.ts";
+import {
+  spawnCircles,
+  updateCircles,
+  renderCircles
+} from "../physics/circles.ts";
 
 function syncLevelState(p: PlayState, level: typeof p.levels[number]): void {
   if (level.kind !== "physics-stress") {
@@ -33,12 +42,12 @@ export function resetPlayState(p: PlayState): void {
   syncLevelState(p, level);
 }
 
-export function createPlayState(campaign: Campaign, initialVolume: number): PlayState {
+export function createPlayState(campaign: Campaign, audio: Audio): PlayState {
   if (!campaign.levels[0]) throw new Error("Campaign has no levels");
   return {
     levels:     campaign.levels,
     levelIndex: 0,
-    volState:   { dragging: false, value: initialVolume },
+    volState:   { dragging: false, value: audio.volume },
     canvasW:    0,
     canvasH:    0,
     walls:      [],
