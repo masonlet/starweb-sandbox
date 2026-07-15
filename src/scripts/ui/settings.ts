@@ -1,4 +1,5 @@
 import type { Audio                 } from "@starweb-libs/audio/audio.js";
+import { transition                 } from "@starweb-libs/engine/transition.js";
 import type { Button, Slider        } from "@starweb-libs/ui/types.js";
 import { getLayout, drawTitle       } from "@starweb-libs/ui/layout.js";
 import { getButtonState, drawButton } from "@starweb-libs/ui/button.js";
@@ -6,7 +7,6 @@ import { updateSlider, drawSlider   } from "@starweb-libs/ui/slider.js";
 import type { SettingsMenuState     } from "./types.ts";
 import { getPointer                 } from "./pointer.ts";
 import type { FrameState, PlayState } from "../game/types.ts";
-import { transition                 } from "../game/transition.ts";
 
 export function handleSettingsFrame(
   w: number, h: number,

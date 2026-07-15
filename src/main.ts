@@ -1,12 +1,16 @@
 import "./style.css";
-import      { startLoop                } from "@starweb-libs/engine/update.js";
-import type { FrameState               } from "./scripts/game/types.ts";
-import      { bootstrapGame            } from "./scripts/game/game.ts";
-import      { loadCampaign             } from "./scripts/campaign/load.ts";
-import      { createPlayState          } from "./scripts/game/play.ts";
-import      { updateFrame, renderFrame } from "./scripts/game/frame.ts";
+import { bootstrapGame } from "@starweb-libs/engine/bootstrap.js";
+import { Audio         } from "@starweb-libs/audio/audio.js";
+import { startLoop     } from "@starweb-libs/engine/update.js";
+import type { FrameState          } from "./scripts/game/types.ts";
+import { loadCampaign             } from "./scripts/campaign/load.ts";
+import { createPlayState          } from "./scripts/game/play.ts";
+import { updateFrame, renderFrame } from "./scripts/game/frame.ts";
 
-const { ctx, size, audio } = bootstrapGame();
+const { ctx, size } = bootstrapGame();
+
+const audio = new Audio();
+audio.init();
 
 const BASE_URL = import.meta.env.BASE_URL;
 await audio.registerSound("button", "audio/ui/button.wav", BASE_URL);
