@@ -1,6 +1,6 @@
-import { transition } from "@starweb-libs/engine/transition.js";
-import { wasPressed } from "@starweb-libs/engine/input/keyboard.js";
 import type { Audio } from "@starweb-libs/audio/audio.js";
+import { wasPressed } from "@starweb-libs/engine/input/keyboard.js";
+import { transition } from "@starweb-libs/menus/transition.js";
 import type { FrameState, PlayState               } from "./types.ts";
 import { updatePlayState,     renderPlayState     } from "./play.ts";
 import { handleTitleFrame,    renderTitleFrame    } from "../ui/title.ts";
