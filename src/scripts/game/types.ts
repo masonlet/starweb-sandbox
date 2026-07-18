@@ -1,13 +1,13 @@
 import type { OBB, AABB, CircleBody } from "@starweb-libs/physics/types.js";
 import type { SliderState           } from "@starweb-libs/ui/types.js";
-import type { Level                 } from "../level/types.ts";
 import type {
   TitleMenuState,
   SettingsMenuState,
   LevelSelectState,
   PauseMenuState,
   CompleteMenuState
-} from "../ui/types.ts";
+} from "@starweb-libs/menus/types.js";
+import type { Level } from "../level/types.ts";
 
 export interface PlayState {
   levels:     Level[];
