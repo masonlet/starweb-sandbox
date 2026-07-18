@@ -15,39 +15,39 @@ import {
   renderCircles
 } from "../physics/circles.ts";
 
-function syncLevelState(p: PlayState, level: typeof p.levels[number]): void {
+function syncLevelState(ps: PlayState, level: typeof ps.levels[number]): void {
   if (level.kind !== "physics-stress") {
-    p.walls   = [];
-    p.bodies  = [];
-    p.circles = [];
+    ps.walls   = [];
+    ps.bodies  = [];
+    ps.circles = [];
     return;
   }
 
-  p.walls = buildWalls(level, p.canvasW, p.canvasH);
+  ps.walls = buildWalls(level, ps.canvasW, ps.canvasH);
 
   const isRect = level.shape === "rect";
-  p.bodies  = isRect ? spawnRects(level.count, level, p.canvasW, p.canvasH) : [];
-  p.circles = isRect ? [] : spawnCircles(level.count, level, p.canvasW, p.canvasH);
+  ps.bodies  = isRect ? spawnRects(level.count, level, ps.canvasW, ps.canvasH) : [];
+  ps.circles = isRect ? [] : spawnCircles(level.count, level, ps.canvasW, ps.canvasH);
 }
 
-export function selectLevel(p: PlayState, index: number): void {
-  if (!p.levels[index]) throw new Error(`Campaign has no level at index ${index}`);
-  p.levelIndex = index;
-  syncLevelState(p, p.levels[index]!);
+export function selectLevel(ps: PlayState, index: number): void {
+  if (!ps.levels[index]) throw new Error(`Campaign has no level at index ${index}`);
+  ps.levelIndex = index;
+  syncLevelState(ps, ps.levels[index]!);
 }
 
-export function resetPlayState(p: PlayState): void {
-  const level = p.levels[p.levelIndex];
-  if (!level) throw new Error(`resetPlayState: no level at index ${p.levelIndex}`);
-  syncLevelState(p, level);
+export function resetPlayState(ps: PlayState): void {
+  const level = ps.levels[ps.levelIndex];
+  if (!level) throw new Error(`resetPlayState: no level at index ${ps.levelIndex}`);
+  syncLevelState(ps, level);
 }
 
-export function createPlayState(campaign: Campaign, audio: Audio): PlayState {
-  if (!campaign.levels[0]) throw new Error("Campaign has no levels");
+export function createPlayState(c: Campaign, a: Audio): PlayState {
+  if (!c.levels[0]) throw new Error("Campaign has no levels");
   return {
-    levels:     campaign.levels,
+    levels:     c.levels,
     levelIndex: 0,
-    volState:   { dragging: false, value: audio.volume },
+    volState:   { dragging: false, value: a.volume },
     canvasW:    0,
     canvasH:    0,
     walls:      [],
@@ -56,31 +56,26 @@ export function createPlayState(campaign: Campaign, audio: Audio): PlayState {
   };
 }
 
-export function updatePlayState(p: PlayState, dt: number): boolean {
+export function updatePlayState(ps: PlayState, dt: number): boolean {
   if (wasPressed("Digit1")) return true;
-  const level = p.levels[p.levelIndex];
+  const level = ps.levels[ps.levelIndex];
   if (!level) return false;
 
   if (level.kind === "physics-stress") {
-    if (level.shape === "rect") updateRects  (p.bodies,  p.walls, p.canvasW, p.canvasH, dt);
-    else                        updateCircles(p.circles, p.walls, p.canvasW, p.canvasH, dt);
+    if (level.shape === "rect") updateRects  (ps.bodies,  ps.walls, ps.canvasW, ps.canvasH, dt);
+    else                        updateCircles(ps.circles, ps.walls, ps.canvasW, ps.canvasH, dt);
   }
 
   return false;
 }
 
-export function renderPlayState(
-  ctx: CanvasRenderingContext2D,
-  p: PlayState,
-  _w: number,
-  _h: number,
-): void {
-  const level = p.levels[p.levelIndex];
+export function renderPlayState(ctx: CanvasRenderingContext2D, ps: PlayState): void {
+  const level = ps.levels[ps.levelIndex];
   if (!level) return;
 
   if (level.kind === "physics-stress") {
-    renderWalls(ctx, p.walls);
-    if (level.shape === "rect") renderRects(ctx, p.bodies);
-    else                        renderCircles(ctx, p.circles);
+    renderWalls(ctx, ps.walls);
+    if (level.shape === "rect") renderRects(ctx, ps.bodies);
+    else                        renderCircles(ctx, ps.circles);
   }
 }

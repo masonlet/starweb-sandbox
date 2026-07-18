@@ -10,68 +10,62 @@ import type { FrameState, PlayState } from "./types.ts";
 import { updatePlayState, renderPlayState, selectLevel, resetPlayState } from "./play.ts";
 import { buildWalls } from "../level/build.ts";
 
-function handlePlayingFrame(
-  frame: FrameState,
-  playState: PlayState,
-  audio: Audio,
-  dt: number
-): FrameState {
-  if (updatePlayState(playState, dt)) {
-    audio.playSound("win");
+function handlePlayingFrame(fs: FrameState, ps: PlayState, a: Audio, dt: number): FrameState {
+  if (updatePlayState(ps, dt)) {
+    a.playSound("win");
     return { game: "level-complete", ui: null };
   }
-  return frame;
+  return fs;
 }
 
 export function updateFrame(
-  size: { width: number; height: number },
-  frame: FrameState,
-  playState: PlayState,
+  fs: FrameState,
+  ps: PlayState,
   a: Audio,
-  dt: number
+  dt: number,
+  size: { width: number; height: number },
 ): FrameState {
   const newW = size.width;
   const newH = size.height;
-  if (newW !== playState.canvasW || newH !== playState.canvasH) {
-    playState.canvasW = newW;
-    playState.canvasH = newH;
-    const level = playState.levels[playState.levelIndex];
-    if (level) playState.walls = buildWalls(level, newW, newH);
+  if (newW !== ps.canvasW || newH !== ps.canvasH) {
+    ps.canvasW = newW;
+    ps.canvasH = newH;
+    const level = ps.levels[ps.levelIndex];
+    if (level) ps.walls = buildWalls(level, newW, newH);
   }
 
   if (wasPressed("Escape")) {
-    if (frame.game === "level-playing") return transition({ game: "level-paused",  ui: null }, a);
-    if (frame.game === "level-paused" ) return transition({ game: "level-playing", ui: null }, a);
+    if (fs.game === "level-playing") return transition({ game: "level-paused",  ui: null }, a);
+    if (fs.game === "level-paused" ) return transition({ game: "level-playing", ui: null }, a);
   }
 
   const { width: w, height: h } = size;
-  switch (frame.game) {
-    case "menu-title":     return handleTitleFrame   (w, h, a, playState.levels.length, () => selectLevel(playState, 0));
-    case "menu-levels":    return handleLevelFrame   (w, h, a, playState.levels, (i) => selectLevel(playState, i));
-    case "menu-settings":  { const r = handleSettingsFrame(w, h, playState.volState, a); playState.volState = r.volState; return r.frame; }
-    case "level-playing":  return handlePlayingFrame (frame, playState, a, dt);
-    case "level-paused":   return handlePauseFrame   (w, h, a, () => resetPlayState(playState));
-    case "level-complete": return handleCompleteFrame(w, h, a, playState.levelIndex, playState.levels.length, (i) => selectLevel(playState, i), () => resetPlayState(playState));
+  switch (fs.game) {
+    case "menu-title":     return handleTitleFrame   (w, h, a, ps.levels.length, () => selectLevel(ps, 0));
+    case "menu-levels":    return handleLevelFrame   (w, h, a, ps.levels, (i) => selectLevel(ps, i));
+    case "menu-settings":  { const r = handleSettingsFrame(w, h, ps.volState, a); ps.volState = r.volState; return r.frame; }
+    case "level-playing":  return handlePlayingFrame (fs, ps, a, dt);
+    case "level-paused":   return handlePauseFrame   (w, h, a, () => resetPlayState(ps));
+    case "level-complete": return handleCompleteFrame(w, h, a, ps.levelIndex, ps.levels.length, (i) => selectLevel(ps, i), () => resetPlayState(ps));
   }
 }
 
 export function renderFrame(
   ctx: CanvasRenderingContext2D,
+  fs: FrameState,
+  ps: PlayState,
   size: { width: number; height: number },
-  frame: FrameState,
-  playState: PlayState
 ): void {
   const { width: w, height: h } = size;
   ctx.fillStyle = "#000";
   ctx.fillRect(0, 0, w, h);
 
-  if (!frame.game.startsWith("menu-")) renderPlayState(ctx, playState, w, h);
-
-  switch (frame.game) {
-    case "menu-title":     renderTitleFrame(ctx, frame.ui, "Web Engine Sandbox", 0.08); break;
-    case "menu-settings":  renderSettingsFrame(ctx, frame.ui);       break;
-    case "menu-levels":    renderLevelFrame   (ctx, frame.ui);       break;
-    case "level-paused":   renderPauseFrame   (ctx, frame.ui, w, h); break;
-    case "level-complete": renderCompleteFrame(ctx, frame.ui, w, h); break;
+  if (!fs.game.startsWith("menu-")) renderPlayState(ctx, ps);
+  switch (fs.game) {
+    case "menu-title":     renderTitleFrame   (ctx, fs.ui, "Web Engine Sandbox", 0.08); break;
+    case "menu-settings":  renderSettingsFrame(ctx, fs.ui);       break;
+    case "menu-levels":    renderLevelFrame   (ctx, fs.ui);       break;
+    case "level-paused":   renderPauseFrame   (ctx, fs.ui, w, h); break;
+    case "level-complete": renderCompleteFrame(ctx, fs.ui, w, h); break;
   }
 }
