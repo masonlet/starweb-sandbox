@@ -4,11 +4,11 @@ import type { Level                   } from "../level/types.ts";
 
 export function spawnCircles(
   count: number,
-  level: Level & { kind: "physics-stress" },
+  l:     Level & { kind: "physics-stress" },
   cw:    number,
   ch:    number
 ): CircleBody[] {
-  const pad    = level.padding;
+  const pad    = l.padding;
   const px     = cw * pad + 30;
   const py     = ch * pad + 30;
   const rangeX = Math.max(0, cw - px * 2);
