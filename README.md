@@ -2,8 +2,11 @@
 
 A stress test and sandbox environment for [@starweb-libs/engine](https://github.com/starweb-libs/engine/), built with TypeScript and Vite.
 
-## Live Demo
-[masonletoile.ca/starweb-sandbox](https://www.masonletoile.ca/starweb-sandbox/)
+[![CI](https://github.com/masonlet/starweb-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/masonlet/starweb-sandbox/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green)](./LICENSE)
+
+## Website
+- [**masonletoile.ca/starweb-sandbox**](https://www.masonletoile.ca/starweb-sandbox/)
 
 ## Tech Stack
 <p align="left">
